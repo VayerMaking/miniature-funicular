@@ -9,7 +9,7 @@ export default function TrelloCard(props) {
   return (
     <Card
       onClick={() => {
-        navigate(`/card/expanded/${props.card.id}`);
+        navigate(`/card/${props.card.id}`);
       }}
       style={{ width: 200, marginBottom: 10 }}
       shadow="sm"

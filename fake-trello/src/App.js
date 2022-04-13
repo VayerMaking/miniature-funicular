@@ -14,9 +14,8 @@ function App() {
     <BrowserRouter>
       <Routes>
         {/* <Route path="/" element={<Cards />}> */}
-        <Route path="/cards" element={<Cards />} />
-        <Route path="/card/:id" element={<TrelloCard />} />
-        <Route path="/card/expanded/:id" element={<ExpandedCard />} />
+        <Route path="/" element={<Cards />} />
+        <Route path="/card/:id" element={<ExpandedCard />} />
       </Routes>
     </BrowserRouter>
   );
