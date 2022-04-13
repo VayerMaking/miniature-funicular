@@ -1,28 +1,27 @@
-import { Card, Text, Image, Group, Button, Badge } from "@mantine/core";
-import { useParams, useNavigate } from "react-router-dom";
-import ExpandedCard from "../components/ExpandedCard";
+import { Card, Text, Group, Button, Badge } from "@mantine/core";
+import { useNavigate } from "react-router-dom";
+
+import { useState, useEffect } from "react";
 
 export default function TrelloCard(props) {
-  const { id } = useParams();
   const navigate = useNavigate();
+
   return (
     <Card
       onClick={() => {
-        navigate(`/card/expanded/${id}`);
+        navigate(`/card/expanded/${props.card.id}`);
       }}
       style={{ width: 200, marginBottom: 10 }}
       shadow="sm"
       p="lg"
     >
-      <h1>{id}</h1>
       <Group position="apart" style={{ marginBottom: 5 }}>
-        <Text weight={500}>{props.cardTitle}</Text>
-        {/* TODO dynamicaly load colors for labels from props */}
+        <Text weight={500}>{props.card.title}</Text>
         <Badge color="pink" variant="light"></Badge>
       </Group>
 
       <Text size="sm" style={{ lineHeight: 1.5 }}>
-        {props.cardContent}
+        {props.card.content}
       </Text>
 
       <Button variant="light" color="blue" fullWidth style={{ marginTop: 14 }}>
