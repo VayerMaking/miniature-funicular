@@ -2,7 +2,12 @@ import { Card, Text, Image, Group, Button, Badge } from "@mantine/core";
 
 export default function TrelloCard(props) {
   return (
-    <Card style={{ width: 200, marginBottom: 10 }} shadow="sm" p="lg">
+    <Card
+      //   onClick={() => router.push("/card/" + props.cardId)}
+      style={{ width: 200, marginBottom: 10 }}
+      shadow="sm"
+      p="lg"
+    >
       <Group position="apart" style={{ marginBottom: 5 }}>
         <Text weight={500}>{props.cardTitle}</Text>
         {/* TODO dynamicaly load colors for labels from props */}
