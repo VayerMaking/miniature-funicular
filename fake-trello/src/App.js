@@ -4,6 +4,10 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Cards from "./routes/Cards";
 import TrelloCard from "./components/TrelloCard";
 import ExpandedCard from "./components/ExpandedCard";
+import { DBConfig } from "./db";
+import { initDB } from "react-indexed-db";
+
+initDB(DBConfig);
 
 function App() {
   return (
