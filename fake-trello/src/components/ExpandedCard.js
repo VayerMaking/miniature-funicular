@@ -17,10 +17,8 @@ export default function ExpandedCard() {
   useEffect(() => {
     getByID(id).then((card) => {
       setCard(card);
-      console.log("card in use", card);
+      setInput(card.content);
     });
-
-    setInput(card.content);
   }, []);
   return (
     <Card style={{ width: 400, marginBottom: 10 }} shadow="sm" p="lg">
