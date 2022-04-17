@@ -8,7 +8,8 @@ import Nav from "./components/Nav";
 import Body from "./components/Body";
 import Board from "./components/Board";
 
-import Cards from "./components/TrelloCard";
+import Cards from "./routes/Cards";
+import ExpandedCard from "./components/ExpandedCard";
 
 initDB(DBConfig);
 
@@ -31,13 +32,12 @@ function App() {
           },
         })}
       >
-        {/* <Routes>
-          <Route path="/" element={<Cards />} />
-        </Routes> */}
         <Routes>
           <Route exact path="/" element={<Body />} />
           <Route exact path="/board/id=" element={<Board />} />
+          <Route path="/card/:id" element={<ExpandedCard />} />
         </Routes>
+
         {/* <Body /> */}
       </AppShell>
     </BrowserRouter>
