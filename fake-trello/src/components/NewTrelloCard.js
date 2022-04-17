@@ -6,6 +6,7 @@ import {
   Badge,
   TextInput,
   Textarea,
+  MultiSelect,
 } from "@mantine/core";
 import { useNavigate } from "react-router-dom";
 
@@ -15,20 +16,40 @@ import { useIndexedDB } from "react-indexed-db";
 export default function NewTrelloCard(props) {
   const [cardTitle, setCardTitle] = useState("");
   const [cardContent, setCardContent] = useState("");
-  const [cardLabel, setCardLabel] = useState("");
+  const [labels, setLabels] = useState(["Bug", "Enchansment", "Idea"]);
+  const [cardLabels, setCardLabels] = useState([]);
+  const { getAll } = useIndexedDB("labels");
 
-  const { add } = useIndexedDB("cards");
+  function AddCard(cardTitle, cardContent, cardLabels) {
+    const { add } = useIndexedDB("cards");
 
-  function addCard(cardTitle, cardContent, cardLabel) {
     add({
       title: cardTitle,
       content: cardContent,
-      label: cardLabel,
+      labels: cardLabels,
       timestamp: Date.now(),
     }).then((error) => {
       console.log(error);
     });
   }
+
+  function AddLabel(label) {
+    const { add } = useIndexedDB("labels");
+
+    add({
+      label: label,
+    }).then((error) => {
+      console.log(error);
+    });
+  }
+
+  //   useEffect(() => {
+  //     getAll().then((labelsFromDB) => {
+  //       console.log("lables", labels);
+  //       setLabels(labelsFromDB);
+  //       console.log("lables after", labels);
+  //     });
+  //   }, []);
 
   return (
     <Card
@@ -47,11 +68,19 @@ export default function NewTrelloCard(props) {
           weight={500}
           onChange={(event) => setCardTitle(event.currentTarget.value)}
         ></TextInput>
-        <TextInput
-          placeholder="label"
-          weight={500}
-          onChange={(event) => setCardLabel(event.currentTarget.value)}
-        ></TextInput>
+        <MultiSelect
+          label="Labels"
+          data={labels}
+          placeholder="Select labels"
+          searchable
+          creatable
+          onChange={setCardLabels}
+          getCreateLabel={(query) => `+ Create ${query}`}
+          onCreate={(query) => {
+            // setCardLabels((cardLabels) => [...cardLabels, query]);
+            AddLabel(query);
+          }}
+        />
       </Group>
       <Textarea
         placeholder="content"
@@ -68,7 +97,7 @@ export default function NewTrelloCard(props) {
         style={{ marginTop: 14 }}
         onClick={() => {
           console.log("saved");
-          addCard(cardTitle, cardContent, cardLabel);
+          AddCard(cardTitle, cardContent, cardLabels);
         }}
       >
         save

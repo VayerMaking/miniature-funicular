@@ -24,7 +24,7 @@ export default function TrelloCard(props) {
       <Group position="apart" style={{ marginBottom: 5 }}>
         <Text weight={500}>{props.card.title}</Text>
         <Badge color="orange" variant="light">
-          {props.card.label}
+          {props.card.labels}
         </Badge>
       </Group>
       <Group position="right">

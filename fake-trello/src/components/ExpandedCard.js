@@ -40,7 +40,7 @@ export default function ExpandedCard() {
           {card.title}
         </Text>
         <Badge color="orange" variant="light">
-          {card.label}
+          {card.labels}
         </Badge>
       </Group>
       <Group position="right" style={{ marginBottom: 15 }}>
