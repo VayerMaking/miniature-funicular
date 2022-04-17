@@ -10,6 +10,7 @@ export const DBConfig = {
         { name: "content", keypath: "content", options: { unique: false } },
         { name: "labels", keypath: "labels", options: { unique: false } },
         { name: "timestamp", keypath: "timestamp", options: { unique: false } },
+        { name: "column", keypath: "column", options: { unique: false } },
       ],
     },
     {

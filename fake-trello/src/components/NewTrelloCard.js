@@ -28,6 +28,7 @@ export default function NewTrelloCard(props) {
       content: cardContent,
       labels: cardLabels,
       timestamp: Date.now(),
+      column: props.column,
     }).then((error) => {
       console.log(error);
     });
