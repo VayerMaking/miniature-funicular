@@ -15,13 +15,16 @@ import { useIndexedDB } from "react-indexed-db";
 export default function NewTrelloCard(props) {
   const [cardTitle, setCardTitle] = useState("");
   const [cardContent, setCardContent] = useState("");
+  const [cardLabel, setCardLabel] = useState("");
 
   const { add } = useIndexedDB("cards");
 
-  function addCard(cardTitle, cardContent) {
-    add({ title: cardTitle, content: cardContent }).then((error) => {
-      console.log(error);
-    });
+  function addCard(cardTitle, cardContent, cardLabel) {
+    add({ title: cardTitle, content: cardContent, label: cardLabel }).then(
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 
   return (
@@ -32,7 +35,11 @@ export default function NewTrelloCard(props) {
           weight={500}
           onChange={(event) => setCardTitle(event.currentTarget.value)}
         ></TextInput>
-        <Badge color="pink" variant="light"></Badge>
+        <TextInput
+          placeholder="label"
+          weight={500}
+          onChange={(event) => setCardLabel(event.currentTarget.value)}
+        ></TextInput>
       </Group>
       <Textarea
         placeholder="content"
@@ -49,7 +56,7 @@ export default function NewTrelloCard(props) {
         style={{ marginTop: 14 }}
         onClick={() => {
           console.log("saved");
-          addCard(cardTitle, cardContent);
+          addCard(cardTitle, cardContent, cardLabel);
         }}
       >
         save

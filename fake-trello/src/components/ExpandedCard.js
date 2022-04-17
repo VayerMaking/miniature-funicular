@@ -1,10 +1,11 @@
 import { Card, Text, Textarea, Group, Button, Badge } from "@mantine/core";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 import { useState, useEffect } from "react";
 import { useIndexedDB } from "react-indexed-db";
 
 export default function ExpandedCard() {
+  const navigate = useNavigate();
   const [card, setCard] = useState({});
   const [input, setInput] = useState();
   const { id } = useParams();
@@ -21,14 +22,25 @@ export default function ExpandedCard() {
     });
   }, []);
   return (
-    <Card style={{ width: 400, marginBottom: 10 }} shadow="sm" p="lg">
+    <Card
+      style={{
+        width: "80%",
+        position: "absolute",
+        left: "50%",
+        top: "50%",
+        transform: "translate(-50%, -50%)",
+      }}
+      shadow="sm"
+      p="lg"
+    >
       <Group position="apart" style={{ marginBottom: 5 }}>
-        <Badge color="pink" variant="light"></Badge>
+        <Text size="l" style={{ lineHeight: 1.5 }}>
+          {card.title}
+        </Text>
+        <Badge color="orange" variant="light">
+          {card.label}
+        </Badge>
       </Group>
-
-      <Text size="sm" style={{ lineHeight: 1.5 }}>
-        {card.title}
-      </Text>
       <Textarea
         value={input}
         placeholder={input}
@@ -42,7 +54,10 @@ export default function ExpandedCard() {
         color="blue"
         fullWidth
         style={{ marginTop: 14 }}
-        onClick={() => updateCard(input)}
+        onClick={() => {
+          updateCard(input);
+          navigate(`/`);
+        }}
       >
         save
       </Button>
