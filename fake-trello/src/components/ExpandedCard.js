@@ -6,12 +6,21 @@ import { useIndexedDB } from "react-indexed-db";
 
 export default function ExpandedCard() {
   const navigate = useNavigate();
+
   const [card, setCard] = useState({});
   const [input, setInput] = useState();
   const { id } = useParams();
   const { update, getByID } = useIndexedDB("cards");
   function updateCard(input) {
-    update({ id: card.id, title: card.title, content: input }).then((error) => {
+    update({
+      id: card.id,
+      title: card.title,
+      content: input,
+      column: card.column,
+      author: card.author,
+      timestamp: card.timestamp,
+      labels: card.labels,
+    }).then((error) => {
       console.log(error);
     });
   }
@@ -66,7 +75,7 @@ export default function ExpandedCard() {
         style={{ marginTop: 14 }}
         onClick={() => {
           updateCard(input);
-          navigate(`/`);
+          navigate(-1);
         }}
       >
         save
