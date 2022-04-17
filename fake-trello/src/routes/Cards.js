@@ -7,6 +7,7 @@ import { useIndexedDB } from "react-indexed-db";
 const Cards = () => {
   const [cards, setCards] = useState([]);
   const { getAll } = useIndexedDB("cards");
+
   useEffect(() => {
     getAll().then((cardsFromDB) => {
       setCards(cardsFromDB);
@@ -16,9 +17,11 @@ const Cards = () => {
   return (
     <div>
       <NewTrelloCard />
-      {cards.map((card) => (
-        <TrelloCard card={card} />
-      ))}
+      {cards
+        .sort((a, b) => b.timestamp - a.timestamp)
+        .map((card) => (
+          <TrelloCard card={card} />
+        ))}
     </div>
   );
 };
