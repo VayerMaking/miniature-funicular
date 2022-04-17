@@ -15,6 +15,13 @@ export const DBConfig = {
       storeConfig: { keyPath: "id", autoIncrement: true },
       storeSchema: [
         { name: "name", keypath: "name", options: { unique: false } },
+      ],
+    },
+    {
+      store: "columns",
+      storeConfig: { keyPath: "id", autoIncrement: true },
+      storeSchema: [
+        { name: "title", keypath: "title", options: { unique: false } },
         { name: "cards", keypath: "cards", options: { unique: false } },
       ],
     },
