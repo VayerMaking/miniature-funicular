@@ -1,15 +1,14 @@
 import { Card, Text, Textarea, Group, Button, Badge } from "@mantine/core";
-import { useParams, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import { useState, useEffect } from "react";
 import { useIndexedDB } from "react-indexed-db";
 
-export default function ExpandedCard() {
+export default function ExpandedCard(props) {
   const navigate = useNavigate();
 
   const [card, setCard] = useState({});
   const [input, setInput] = useState();
-  const { id } = useParams();
   const { update, getByID } = useIndexedDB("cards");
   function updateCard(input) {
     update({
@@ -25,7 +24,7 @@ export default function ExpandedCard() {
     });
   }
   useEffect(() => {
-    getByID(id).then((card) => {
+    getByID(props.id).then((card) => {
       setCard(card);
       setInput(card.content);
     });
