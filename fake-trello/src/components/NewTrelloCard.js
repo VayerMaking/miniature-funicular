@@ -16,7 +16,7 @@ import { useIndexedDB } from "react-indexed-db";
 export default function NewTrelloCard(props) {
   const [cardTitle, setCardTitle] = useState("");
   const [cardContent, setCardContent] = useState("");
-  const [labels, setLabels] = useState(["Bug", "Enchansment", "Idea"]);
+  const [labels, setLabels] = useState([]);
   const [cardLabels, setCardLabels] = useState([]);
   const { getAll } = useIndexedDB("labels");
 
@@ -44,18 +44,17 @@ export default function NewTrelloCard(props) {
     });
   }
 
-  //   useEffect(() => {
-  //     getAll().then((labelsFromDB) => {
-  //       console.log("lables", labels);
-  //       setLabels(labelsFromDB);
-  //       console.log("lables after", labels);
-  //     });
-  //   }, []);
+  useEffect(() => {
+    getAll().then((labelsFromDB) => {
+      const temp = labelsFromDB.map((label) => label.label);
+      setLabels(temp);
+    });
+  }, []);
 
   return (
     <Card
       style={{
-        width: 200,
+        width: 300,
         margin: 10,
         border: "1px solid rgba(0, 0, 0, .3)",
         borderRadius: 10,
@@ -65,13 +64,14 @@ export default function NewTrelloCard(props) {
     >
       <Group position="apart" style={{ marginBottom: 5 }}>
         <TextInput
+          label="Title"
           placeholder="title"
           weight={500}
           onChange={(event) => setCardTitle(event.currentTarget.value)}
         ></TextInput>
         <MultiSelect
           label="Labels"
-          data={labels}
+          data={labels || ["Bug", "Feature", "Enhancement"]}
           placeholder="Select labels"
           searchable
           creatable
@@ -84,6 +84,7 @@ export default function NewTrelloCard(props) {
         />
       </Group>
       <Textarea
+        label="Content"
         placeholder="content"
         size="sm"
         style={{ lineHeight: 1.5 }}
