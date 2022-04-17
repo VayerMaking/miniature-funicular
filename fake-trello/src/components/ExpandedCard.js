@@ -29,6 +29,8 @@ export default function ExpandedCard() {
         left: "50%",
         top: "50%",
         transform: "translate(-50%, -50%)",
+        border: "1px solid rgba(0, 0, 0, .3)",
+        borderRadius: 10,
       }}
       shadow="lg"
       p="lg"
