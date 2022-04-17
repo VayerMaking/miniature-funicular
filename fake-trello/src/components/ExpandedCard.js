@@ -1,36 +1,65 @@
 import { Card, Text, Textarea, Group, Button, Badge } from "@mantine/core";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 import { useState, useEffect } from "react";
 import { useIndexedDB } from "react-indexed-db";
 
 export default function ExpandedCard() {
+  const navigate = useNavigate();
+
   const [card, setCard] = useState({});
   const [input, setInput] = useState();
   const { id } = useParams();
   const { update, getByID } = useIndexedDB("cards");
   function updateCard(input) {
-    update({ id: card.id, title: card.title, content: input }).then((error) => {
+    update({
+      id: card.id,
+      title: card.title,
+      content: input,
+      column: card.column,
+      author: card.author,
+      timestamp: card.timestamp,
+      labels: card.labels,
+    }).then((error) => {
       console.log(error);
     });
   }
   useEffect(() => {
     getByID(id).then((card) => {
       setCard(card);
-      console.log("card in use", card);
+      setInput(card.content);
     });
-
-    setInput(card.content);
   }, []);
   return (
-    <Card style={{ width: 400, marginBottom: 10 }} shadow="sm" p="lg">
-      <Group position="apart" style={{ marginBottom: 5 }}>
-        <Badge color="pink" variant="light"></Badge>
+    <Card
+      style={{
+        width: "80%",
+        position: "absolute",
+        left: "50%",
+        top: "50%",
+        transform: "translate(-50%, -50%)",
+        border: "1px solid rgba(0, 0, 0, .3)",
+        borderRadius: 10,
+      }}
+      shadow="lg"
+      p="lg"
+    >
+      <Group position="apart" style={{ marginBottom: 15 }}>
+        <Text weight={500} style={{ lineHeight: 1.5, marginLeft: 10 }}>
+          {card.title}
+        </Text>
+        <Badge color="orange" variant="light">
+          {card.labels}
+        </Badge>
       </Group>
-
-      <Text size="sm" style={{ lineHeight: 1.5 }}>
-        {card.title}
-      </Text>
+      <Group position="right" style={{ marginBottom: 15 }}>
+        <Text weight={200} size={"xs"}>
+          author:
+        </Text>
+        <Badge color="grape" variant="light">
+          {card.author}
+        </Badge>
+      </Group>
       <Textarea
         value={input}
         placeholder={input}
@@ -44,7 +73,10 @@ export default function ExpandedCard() {
         color="blue"
         fullWidth
         style={{ marginTop: 14 }}
-        onClick={() => updateCard(input)}
+        onClick={() => {
+          updateCard(input);
+          navigate(-1);
+        }}
       >
         save
       </Button>
