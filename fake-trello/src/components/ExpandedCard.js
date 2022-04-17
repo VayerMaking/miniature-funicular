@@ -1,4 +1,12 @@
-import { Card, Text, Textarea, Group, Button, Badge } from "@mantine/core";
+import {
+  Card,
+  Text,
+  Textarea,
+  Group,
+  Button,
+  Badge,
+  SegmentedControl,
+} from "@mantine/core";
 import { useNavigate } from "react-router-dom";
 
 import { useState, useEffect } from "react";
@@ -9,13 +17,18 @@ export default function ExpandedCard(props) {
 
   const [card, setCard] = useState({});
   const [input, setInput] = useState();
-  const { update, getByID } = useIndexedDB("cards");
-  function updateCard(input) {
+  const [column, setColumn] = useState("");
+  const { getByID } = useIndexedDB("cards");
+  const [columnTitles, setColumnTitles] = useState(["as", "asd"]);
+
+  function UpdateCard(input) {
+    const { update } = useIndexedDB("cards");
+
     update({
       id: card.id,
       title: card.title,
       content: input,
-      column: card.column,
+      column: column,
       author: card.author,
       timestamp: card.timestamp,
       labels: card.labels,
@@ -23,10 +36,22 @@ export default function ExpandedCard(props) {
       console.log(error);
     });
   }
+
+  function GetColumns() {
+    const { getAll } = useIndexedDB("columns");
+    getAll().then((columnsFromDB) => {
+      console.log("columns", columnTitles);
+      console.log("columnsfrdb", columnsFromDB);
+      // make an array with only the titles
+      const temp = columnsFromDB.map((column) => column.title);
+      setColumnTitles(temp);
+    });
+  }
   useEffect(() => {
     getByID(props.id).then((card) => {
       setCard(card);
       setInput(card.content);
+      GetColumns();
     });
   }, []);
   return (
@@ -59,6 +84,7 @@ export default function ExpandedCard(props) {
           {card.author}
         </Badge>
       </Group>
+
       <Textarea
         value={input}
         placeholder={input}
@@ -67,13 +93,23 @@ export default function ExpandedCard(props) {
         minRows={2}
       />
 
+      <SegmentedControl
+        style={{ margin: 10 }}
+        fullWidth
+        size="xs"
+        value={column}
+        onChange={setColumn}
+        data={columnTitles}
+        defaultValue={card.column}
+      />
+
       <Button
         variant="light"
         color="blue"
         fullWidth
         style={{ marginTop: 14 }}
         onClick={() => {
-          updateCard(input);
+          UpdateCard(input);
           navigate(-1);
         }}
       >
