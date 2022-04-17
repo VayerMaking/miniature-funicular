@@ -20,15 +20,27 @@ export default function NewTrelloCard(props) {
   const { add } = useIndexedDB("cards");
 
   function addCard(cardTitle, cardContent, cardLabel) {
-    add({ title: cardTitle, content: cardContent, label: cardLabel }).then(
-      (error) => {
-        console.log(error);
-      }
-    );
+    add({
+      title: cardTitle,
+      content: cardContent,
+      label: cardLabel,
+      timestamp: Date.now(),
+    }).then((error) => {
+      console.log(error);
+    });
   }
 
   return (
-    <Card style={{ width: 200, marginBottom: 10 }} shadow="sm" p="lg">
+    <Card
+      style={{
+        width: 200,
+        margin: 10,
+        border: "1px solid rgba(0, 0, 0, .3)",
+        borderRadius: 10,
+      }}
+      shadow="sm"
+      p="lg"
+    >
       <Group position="apart" style={{ marginBottom: 5 }}>
         <TextInput
           placeholder="title"

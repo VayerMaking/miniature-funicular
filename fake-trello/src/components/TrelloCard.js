@@ -11,9 +11,15 @@ export default function TrelloCard(props) {
       onClick={() => {
         navigate(`/card/${props.card.id}`);
       }}
-      style={{ width: 200, marginBottom: 10 }}
-      shadow="sm"
+      style={{
+        width: 300,
+        margin: 10,
+        border: "1px solid rgba(0, 0, 0, .3)",
+        borderRadius: 10,
+      }}
+      shadow="lg"
       p="lg"
+      withBorder={true}
     >
       <Group position="apart" style={{ marginBottom: 5 }}>
         <Text weight={500}>{props.card.title}</Text>
