@@ -27,6 +27,11 @@ export default function TrelloCard(props) {
           {props.card.label}
         </Badge>
       </Group>
+      <Group position="right">
+        <Badge color="grape" variant="light">
+          {props.card.author}
+        </Badge>
+      </Group>
 
       <Text size="sm" style={{ lineHeight: 1.5 }}>
         {props.card.content}
