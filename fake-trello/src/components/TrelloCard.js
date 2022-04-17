@@ -36,10 +36,6 @@ export default function TrelloCard(props) {
       <Text size="sm" style={{ lineHeight: 1.5 }}>
         {props.card.content}
       </Text>
-
-      <Button variant="light" color="blue" fullWidth style={{ marginTop: 14 }}>
-        save
-      </Button>
     </Card>
   );
 }
