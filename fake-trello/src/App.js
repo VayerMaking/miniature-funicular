@@ -8,7 +8,7 @@ import Nav from "./components/Nav";
 import Body from "./components/Body";
 import Board from "./components/Board";
 
-import Cards from "./routes/Cards";
+import Cards from "./components/Cards";
 import ExpandedCard from "./components/ExpandedCard";
 
 initDB(DBConfig);
