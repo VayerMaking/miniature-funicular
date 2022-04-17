@@ -23,7 +23,7 @@ export default function Cards(props) {
       {cards &&
         cards.length > 0 &&
         cards
-          // .sort((a, b) => b.timestamp - a.timestamp)
+          .sort((a, b) => b.timestamp - a.timestamp)
           .map((card) => <TrelloCard card={card} />)}
     </div>
   );

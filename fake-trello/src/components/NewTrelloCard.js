@@ -99,6 +99,7 @@ export default function NewTrelloCard(props) {
         onClick={() => {
           console.log("saved");
           AddCard(cardTitle, cardContent, cardLabels);
+          window.location.reload();
         }}
       >
         save
