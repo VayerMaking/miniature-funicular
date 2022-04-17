@@ -6,6 +6,7 @@ import { initDB } from "react-indexed-db";
 import { AppShell, Navbar, Header, Text } from "@mantine/core";
 import Nav from "./components/Nav";
 import Body from "./components/Body";
+import Board from "./components/Board";
 
 import Cards from "./components/TrelloCard";
 
@@ -33,7 +34,11 @@ function App() {
         {/* <Routes>
           <Route path="/" element={<Cards />} />
         </Routes> */}
-        <Body />
+        <Routes>
+          <Route exact path="/" element={<Body />} />
+          <Route exact path="/board/id=" element={<Board />} />
+        </Routes>
+        {/* <Body /> */}
       </AppShell>
     </BrowserRouter>
   );
