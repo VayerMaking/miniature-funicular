@@ -4,7 +4,7 @@ import { SimpleGrid } from "@mantine/core";
 import Cards from "./Cards";
 
 export default function Column(props) {
-  console.log(props.column.name)
+  console.log(props.column.name);
   return (
     <SimpleGrid>
       <Card shadow="sm" p="xl" component="a" target="_blank">
@@ -12,7 +12,7 @@ export default function Column(props) {
           <p>{props.column.title}</p>
         </Card.Section>
       </Card>
-      <Cards column={props.title} />
+      <Cards column={props.column} />
     </SimpleGrid>
   );
 }

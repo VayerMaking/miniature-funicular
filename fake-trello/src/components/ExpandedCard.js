@@ -17,9 +17,9 @@ export default function ExpandedCard(props) {
 
   const [card, setCard] = useState({});
   const [input, setInput] = useState();
-  const [column, setColumn] = useState("");
+  const [column, setColumn] = useState();
   const { getByID } = useIndexedDB("cards");
-  const [columnTitles, setColumnTitles] = useState(["as", "asd"]);
+  const [columnTitles, setColumnTitles] = useState([]);
 
   function UpdateCard(input) {
     const { update } = useIndexedDB("cards");
@@ -40,9 +40,6 @@ export default function ExpandedCard(props) {
   function GetColumns() {
     const { getAll } = useIndexedDB("columns");
     getAll().then((columnsFromDB) => {
-      console.log("columns", columnTitles);
-      console.log("columnsfrdb", columnsFromDB);
-      // make an array with only the titles
       const temp = columnsFromDB.map((column) => column.title);
       setColumnTitles(temp);
     });
