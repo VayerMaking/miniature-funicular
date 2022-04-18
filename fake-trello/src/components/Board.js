@@ -1,6 +1,6 @@
 import { useIndexedDB } from "react-indexed-db";
 import React, { useState, useEffect } from "react";
-import { Button, Modal, TextInput } from "@mantine/core";
+import { Button, Grid, Modal, TextInput } from "@mantine/core";
 import Column from "./Column";
 
 export default function Board() {
@@ -10,7 +10,6 @@ export default function Board() {
 
   const [columns, setColumns] = useState([]);
   const [columnTitle, setColumnTitle] = useState([]);
-
 
   useEffect(() => {
     getAll().then((columns) => {
@@ -25,7 +24,6 @@ export default function Board() {
     // });
     // window.location.reload();
     setOpened(true);
-
   };
 
   function AddColumn(columnTitle) {
@@ -53,15 +51,19 @@ export default function Board() {
         <Button
           onClick={() => {
             AddColumn(columnTitle);
-            console.log(columnTitle)
+            console.log(columnTitle);
           }}
         >
           Set title
         </Button>
       </Modal>
-      {columns.map((column) => (
-        <Column column={column} />
-      ))}
+      <Grid justify="space-around">
+        {columns.map((column) => (
+          <Grid.Col span={3}>
+            <Column column={column} />
+          </Grid.Col>
+        ))}
+      </Grid>
 
       <Button onClick={handleClick}>Add COLUMN</Button>
     </div>
