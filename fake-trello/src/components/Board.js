@@ -48,9 +48,8 @@ export default function Board() {
           <Button
             onClick={() => {
               AddColumn(columnTitle);
-              console.log(columnTitle);
-              setOpened(false);
-              window.location.reload();
+              // setOpened(false);
+              // window.location.reload();
             }}
           >
             Set title

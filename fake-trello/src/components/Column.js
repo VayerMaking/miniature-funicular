@@ -1,12 +1,10 @@
-import { Grid } from "@mantine/core";
-import { Card, Image, Text } from "@mantine/core";
-import { SimpleGrid } from "@mantine/core";
+import { Card, SimpleGrid, Text } from "@mantine/core";
 import Cards from "./Cards";
 
 export default function Column(props) {
   console.log(props.column.name);
   return (
-    <SimpleGrid display="contents" flex-wrap= "nowrap" flex-direction = "row">
+    <SimpleGrid display="contents" flex-wrap="nowrap" flex-direction="row">
       <Card
         style={{
           width: 320,
@@ -20,11 +18,10 @@ export default function Column(props) {
         <Card.Section>
           <div>
             <Text align="center">{props.column.title}</Text>
-            <Cards align="center" column={props.title} />
+            <Cards align="center" column={props.column} />
           </div>
         </Card.Section>
       </Card>
-      <Cards column={props.column} />
     </SimpleGrid>
   );
 }

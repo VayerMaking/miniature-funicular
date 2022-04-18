@@ -51,8 +51,8 @@ export default function Boards() {
         <Button
           onClick={() => {
             GetName(boardTitle);
-            setOpened(false);
-            window.location.reload();
+            // setOpened(false);
+            // window.location.reload();
           }}
         >
           Set title
