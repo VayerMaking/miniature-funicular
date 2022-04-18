@@ -5,16 +5,14 @@ import { Button, Modal, Input, Grid, TextInput } from "@mantine/core";
 
 export default function Boards() {
   const { getAll } = useIndexedDB("boards");
+  const { getByID } = useIndexedDB("boards");
   const { add } = useIndexedDB("cards");
   const [boards, setBoard] = useState([]);
   const [boardTitle, setBoardTitle] = useState("");
   const [input, setInput] = useState("");
   const [opened, setOpened] = useState(false);
-  const navigate = useNavigate();
 
-  const showBoard = () => {
-    navigate(`/board/id=`);
-  };
+  const navigate = useNavigate();
 
   const handleClick = () => {
     setOpened(true);
@@ -31,6 +29,7 @@ export default function Boards() {
 
     add({
       name: boardTitle,
+      // columns:
     }).then((error) => {
       console.log(error);
     });
@@ -59,18 +58,19 @@ export default function Boards() {
         </Button>
       </Modal>
 
-      {boards.map(
-        (board) => (
-          console.log(board),
-          (
-            <span key={board.id} flex-direction="column">
-              <Button onClick={showBoard} variant="white" color="dark">
-                <p>{board.name}</p>
-              </Button>
-            </span>
-          )
-        )
-      )}
+      {boards.map((board) => (
+        <span key={board.id} flex-direction="column">
+          <Button 
+          // onClick={showBoard(board.id)} 
+          onClick={() => {
+            navigate(`/board/` + board.id);
+          }}
+          variant="white"
+           color="dark">
+            <p>{board.name}</p>
+          </Button>
+        </span>
+      ))}
       <Button onClick={handleClick}>Add board</Button>
     </div>
   );

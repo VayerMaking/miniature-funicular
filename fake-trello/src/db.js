@@ -30,6 +30,7 @@ export const DBConfig = {
       storeConfig: { keyPath: "id", autoIncrement: true },
       storeSchema: [
         { name: "name", keypath: "name", options: { unique: false } },
+        // { name: "columns", keypath: "columns", options: { unique: false } },
       ],
     },
     {
@@ -38,6 +39,7 @@ export const DBConfig = {
       storeSchema: [
         { name: "title", keypath: "title", options: { unique: true } },
         { name: "cards", keypath: "cards", options: { unique: false } },
+        { name: "board", keypath: "board", options: { unique: false } },
       ],
     },
   ],

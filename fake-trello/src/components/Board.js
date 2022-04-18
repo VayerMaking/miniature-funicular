@@ -1,5 +1,7 @@
 import { useIndexedDB } from "react-indexed-db";
 import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+
 import { Button, Grid, Modal, TextInput, ScrollArea } from "@mantine/core";
 import Column from "./Column";
 
@@ -7,7 +9,7 @@ export default function Board() {
   const { getAll } = useIndexedDB("columns");
   const { add } = useIndexedDB("columns");
   const [opened, setOpened] = useState(false);
-
+  let { id } = useParams();
   const [columns, setColumns] = useState([]);
   const [columnTitle, setColumnTitle] = useState([]);
 
@@ -27,6 +29,7 @@ export default function Board() {
 
     add({
       title: columnTitle,
+      board: id,
     }).then((error) => {
       console.log(error);
     });
@@ -58,11 +61,14 @@ export default function Board() {
         <Button onClick={handleClick}>Add COLUMN</Button>
         <div>
           <Grid justify="flex-start" flex-direction="row">
-            {columns.map((column) => (
-              <Grid.Col flex-direction="row" span={1}>
-                <Column column={column} />
-              </Grid.Col>
-            ))}
+            {columns
+              .filter((column) => column.board.id == id)
+              .map((column) => (
+                <Grid.Col flex-direction="row" span={1}>
+                  {console.log(columns)}
+                  <Column column={column} />
+                </Grid.Col>
+              ))}
           </Grid>
         </div>
       </div>

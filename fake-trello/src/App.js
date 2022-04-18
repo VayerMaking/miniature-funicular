@@ -1,14 +1,11 @@
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-
 import { DBConfig } from "./db";
 import { initDB } from "react-indexed-db";
-import { AppShell, Navbar, Header, Text } from "@mantine/core";
+import { AppShell, Header } from "@mantine/core";
 import Nav from "./components/Nav";
 import Body from "./components/Body";
 import Board from "./components/Board";
-
-import Cards from "./components/Cards";
 import ExpandedCard from "./components/ExpandedCard";
 
 initDB(DBConfig);
@@ -34,11 +31,9 @@ function App() {
       >
         <Routes>
           <Route exact path="/" element={<Body />} />
-          <Route exact path="/board/id=" element={<Board />} />
+          <Route path="/board/:id" element={<Board />} />
           <Route path="/card/:id" element={<ExpandedCard />} />
         </Routes>
-
-        {/* <Body /> */}
       </AppShell>
     </BrowserRouter>
   );
