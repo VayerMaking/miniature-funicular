@@ -1,7 +1,16 @@
 import { useIndexedDB } from "react-indexed-db";
 import { useNavigate } from "react-router-dom";
 import React, { useState, useEffect } from "react";
-import { Button, Modal, Input, Grid, TextInput } from "@mantine/core";
+import {
+  Button,
+  Modal,
+  Input,
+  Grid,
+  TextInput,
+  Group,
+  Card,
+  Text,
+} from "@mantine/core";
 
 export default function Boards() {
   const { getAll } = useIndexedDB("boards");
@@ -17,6 +26,13 @@ export default function Boards() {
   const handleClick = () => {
     setOpened(true);
   };
+
+  function DeleteBoard(boardId) {
+    const { deleteRecord } = useIndexedDB("boards");
+    deleteRecord(boardId).then((error) => {
+      console.log(error);
+    });
+  }
 
   useEffect(() => {
     getAll().then((boardsDB) => {
@@ -57,20 +73,40 @@ export default function Boards() {
           Set title
         </Button>
       </Modal>
-
-      {boards.map((board) => (
-        <span key={board.id} flex-direction="column">
-          <Button 
-          // onClick={showBoard(board.id)} 
-          onClick={() => {
-            navigate(`/board/` + board.id);
-          }}
-          variant="white"
-           color="dark">
-            <p>{board.name}</p>
-          </Button>
-        </span>
-      ))}
+      <Grid>
+        {boards.map((board) => (
+          <Card
+            key={board.id}
+            onClick={() => {
+              navigate(`/board/` + board.id);
+            }}
+            style={{
+              width: 300,
+              margin: 10,
+              border: "1px solid rgba(0, 0, 0, .3)",
+              borderRadius: 10,
+            }}
+            shadow="sm"
+            p="lg"
+          >
+            <Text align="center" weight={500}>
+              {board.name}
+            </Text>
+            <Button
+              variant="light"
+              color="red"
+              fullWidth
+              style={{ marginTop: 14 }}
+              onClick={() => {
+                DeleteBoard(board.id);
+                window.location.reload();
+              }}
+            >
+              delete
+            </Button>
+          </Card>
+        ))}
+      </Grid>
       <Button onClick={handleClick}>Add board</Button>
     </div>
   );
