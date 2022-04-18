@@ -19,10 +19,6 @@ export default function Board() {
   }, []);
 
   const handleClick = () => {
-    // add({ title: "title", cards: {} }).then((error) => {
-    //   console.log(error);
-    // });
-    // window.location.reload();
     setOpened(true);
   };
 

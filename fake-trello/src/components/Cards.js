@@ -12,7 +12,7 @@ export default function Cards(props) {
     getAll().then((cardsFromDB) => {
       setCards(
         cardsFromDB
-          .filter((card) => card.column === props.column)
+          .filter((card) => card.column === props.column.title)
           .filter((card) => card.is_archived === false)
       );
     });
