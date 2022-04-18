@@ -52,8 +52,10 @@ export default function Board() {
         ></TextInput>
         <Button
           onClick={() => {
-            AddColumn(columnTitle);
+            AddColumn(columnTitle)
             console.log(columnTitle)
+            setOpened(false)
+            window.location.reload();
           }}
         >
           Set title

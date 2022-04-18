@@ -111,6 +111,8 @@ export default function ExpandedCard(props) {
         onClick={() => {
           UpdateCard(input);
           navigate(-1);
+          // setOpened(false)
+          // window.location.reload();
         }}
       >
         save
