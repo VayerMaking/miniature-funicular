@@ -32,7 +32,32 @@ export default function ExpandedCard(props) {
       author: card.author,
       timestamp: card.timestamp,
       labels: card.labels,
+      is_archived: false,
     }).then((error) => {
+      console.log(error);
+    });
+  }
+
+  function ArchiveCard() {
+    const { update } = useIndexedDB("cards");
+
+    update({
+      id: card.id,
+      title: card.title,
+      content: card.content,
+      column: column,
+      author: card.author,
+      timestamp: card.timestamp,
+      labels: card.labels,
+      is_archived: true,
+    }).then((error) => {
+      console.log(error);
+    });
+  }
+
+  function DeleteCard() {
+    const { deleteRecord } = useIndexedDB("cards");
+    deleteRecord(card.id).then((error) => {
       console.log(error);
     });
   }
@@ -96,18 +121,38 @@ export default function ExpandedCard(props) {
         defaultValue={card.column}
       />
 
-      <Button
-        variant="light"
-        color="blue"
-        fullWidth
-        style={{ marginTop: 14 }}
-        onClick={() => {
-          UpdateCard(input);
-          navigate(-1);
-        }}
-      >
-        save
-      </Button>
+      <Group position="apart" spacing="xs">
+        <Button
+          variant="light"
+          color="blue"
+          style={{ marginTop: 14 }}
+          onClick={() => {
+            UpdateCard(input);
+          }}
+        >
+          save
+        </Button>
+        <Button
+          variant="light"
+          color="orange"
+          style={{ marginTop: 14 }}
+          onClick={() => {
+            ArchiveCard();
+          }}
+        >
+          archive
+        </Button>
+        <Button
+          variant="light"
+          color="red"
+          style={{ marginTop: 14 }}
+          onClick={() => {
+            DeleteCard();
+          }}
+        >
+          delete
+        </Button>
+      </Group>
     </Card>
   );
 }

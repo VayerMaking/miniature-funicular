@@ -11,6 +11,11 @@ export const DBConfig = {
         { name: "labels", keypath: "labels", options: { unique: false } },
         { name: "timestamp", keypath: "timestamp", options: { unique: false } },
         { name: "column", keypath: "column", options: { unique: false } },
+        {
+          name: "is_archived",
+          keypath: "is_archived",
+          options: { unique: false },
+        },
       ],
     },
     {

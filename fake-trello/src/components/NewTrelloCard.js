@@ -29,6 +29,7 @@ export default function NewTrelloCard(props) {
       labels: cardLabels,
       timestamp: Date.now(),
       column: props.column.title,
+      is_archived: false,
     }).then((error) => {
       console.log(error);
     });
