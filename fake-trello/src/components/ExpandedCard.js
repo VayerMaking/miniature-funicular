@@ -15,11 +15,11 @@ import { useIndexedDB } from "react-indexed-db";
 export default function ExpandedCard(props) {
   const navigate = useNavigate();
 
-  const [card, setCard] = useState({});
-  const [input, setInput] = useState();
-  const [column, setColumn] = useState("");
+  const [card, setCard] = useState(props.card);
+  const [input, setInput] = useState("");
+  const [column, setColumn] = useState(props.card.column);
   const { getByID } = useIndexedDB("cards");
-  const [columnTitles, setColumnTitles] = useState(["as", "asd"]);
+  const [columnTitles, setColumnTitles] = useState(["default"]);
 
   function UpdateCard(input) {
     const { update } = useIndexedDB("cards");
@@ -32,7 +32,32 @@ export default function ExpandedCard(props) {
       author: card.author,
       timestamp: card.timestamp,
       labels: card.labels,
+      is_archived: false,
     }).then((error) => {
+      console.log(error);
+    });
+  }
+
+  function ArchiveCard() {
+    const { update } = useIndexedDB("cards");
+
+    update({
+      id: card.id,
+      title: card.title,
+      content: card.content,
+      column: column,
+      author: card.author,
+      timestamp: card.timestamp,
+      labels: card.labels,
+      is_archived: true,
+    }).then((error) => {
+      console.log(error);
+    });
+  }
+
+  function DeleteCard() {
+    const { deleteRecord } = useIndexedDB("cards");
+    deleteRecord(card.id).then((error) => {
       console.log(error);
     });
   }
@@ -40,28 +65,21 @@ export default function ExpandedCard(props) {
   function GetColumns() {
     const { getAll } = useIndexedDB("columns");
     getAll().then((columnsFromDB) => {
-      console.log("columns", columnTitles);
-      console.log("columnsfrdb", columnsFromDB);
-      // make an array with only the titles
       const temp = columnsFromDB.map((column) => column.title);
       setColumnTitles(temp);
     });
   }
   useEffect(() => {
-    getByID(props.id).then((card) => {
-      setCard(card);
+    getByID(props.id).then((i) => {
+      setCard({ ...card, ...i });
       setInput(card.content);
       GetColumns();
+      setColumn(card.column);
     });
   }, []);
   return (
     <Card
       style={{
-        width: "80%",
-        position: "absolute",
-        left: "50%",
-        top: "50%",
-        transform: "translate(-50%, -50%)",
         border: "1px solid rgba(0, 0, 0, .3)",
         borderRadius: 10,
       }}
@@ -103,20 +121,38 @@ export default function ExpandedCard(props) {
         defaultValue={card.column}
       />
 
-      <Button
-        variant="light"
-        color="blue"
-        fullWidth
-        style={{ marginTop: 14 }}
-        onClick={() => {
-          UpdateCard(input);
-          navigate(-1);
-          // setOpened(false)
-          // window.location.reload();
-        }}
-      >
-        save
-      </Button>
+      <Group position="apart" spacing="xs">
+        <Button
+          variant="light"
+          color="blue"
+          style={{ marginTop: 14 }}
+          onClick={() => {
+            UpdateCard(input);
+          }}
+        >
+          save
+        </Button>
+        <Button
+          variant="light"
+          color="orange"
+          style={{ marginTop: 14 }}
+          onClick={() => {
+            ArchiveCard();
+          }}
+        >
+          archive
+        </Button>
+        <Button
+          variant="light"
+          color="red"
+          style={{ marginTop: 14 }}
+          onClick={() => {
+            DeleteCard();
+          }}
+        >
+          delete
+        </Button>
+      </Group>
     </Card>
   );
 }
