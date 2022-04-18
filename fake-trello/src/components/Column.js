@@ -1,4 +1,4 @@
-import { Card, SimpleGrid, Text,Button } from "@mantine/core";
+import { Card, SimpleGrid, Text, Button } from "@mantine/core";
 import Cards from "./Cards";
 import { useIndexedDB } from "react-indexed-db";
 
