@@ -1,8 +1,14 @@
-import { Card, SimpleGrid, Text } from "@mantine/core";
+import { Card, SimpleGrid, Text,Button } from "@mantine/core";
 import Cards from "./Cards";
+import { useIndexedDB } from "react-indexed-db";
 
 export default function Column(props) {
-  console.log(props.column.name);
+  function DeleteColumn(columnId) {
+    const { deleteRecord } = useIndexedDB("columns");
+    deleteRecord(columnId).then((error) => {
+      console.log(error);
+    });
+  }
   return (
     <SimpleGrid display="contents" flex-wrap="nowrap" flex-direction="row">
       <Card
@@ -21,6 +27,18 @@ export default function Column(props) {
             <Cards align="center" column={props.column} />
           </div>
         </Card.Section>
+        <Button
+          variant="light"
+          color="red"
+          fullWidth
+          style={{ marginTop: 14 }}
+          onClick={() => {
+            DeleteColumn(props.column.id);
+            window.location.reload();
+          }}
+        >
+          delete
+        </Button>
       </Card>
     </SimpleGrid>
   );
