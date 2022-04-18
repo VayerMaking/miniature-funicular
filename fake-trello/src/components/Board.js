@@ -37,7 +37,6 @@ export default function Board() {
   }
 
   return (
-    
     <ScrollArea style={{ width: "120%" }}>
       <div>
         <Modal
@@ -52,21 +51,10 @@ export default function Board() {
           ></TextInput>
           <Button
             onClick={() => {
-              AddColumn(columnTitle)
-              console.log(columnTitle)
-              setOpened(false)
-              window.location.reload();
-            }}
-        >
-          <TextInput
-            placeholder="title"
-            weight={500}
-            onChange={(event) => setColumnTitle(event.currentTarget.value)}
-          ></TextInput>
-          <Button
-            onClick={() => {
               AddColumn(columnTitle);
               console.log(columnTitle);
+              setOpened(false);
+              window.location.reload();
             }}
           >
             Set title
@@ -74,7 +62,7 @@ export default function Board() {
         </Modal>
         <Button onClick={handleClick}>Add COLUMN</Button>
         <div>
-          <Grid justify="flex-start" flex-direction="row" >
+          <Grid justify="flex-start" flex-direction="row">
             {columns.map((column) => (
               <Grid.Col flex-direction="row" span={1}>
                 <Column column={column} />
