@@ -51,7 +51,8 @@ export default function Boards() {
         <Button
           onClick={() => {
             GetName(boardTitle);
-            setOpened(false);
+            setOpened(false)
+            window.location.reload();
           }}
         >
           {" "}

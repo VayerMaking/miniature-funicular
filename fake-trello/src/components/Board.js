@@ -37,12 +37,26 @@ export default function Board() {
   }
 
   return (
+    
     <ScrollArea style={{ width: "120%" }}>
       <div>
         <Modal
           opened={opened}
           onClose={() => setOpened(false)}
           title="Column name"
+        >
+          <TextInput
+            placeholder="title"
+            weight={500}
+            onChange={(event) => setColumnTitle(event.currentTarget.value)}
+          ></TextInput>
+          <Button
+            onClick={() => {
+              AddColumn(columnTitle)
+              console.log(columnTitle)
+              setOpened(false)
+              window.location.reload();
+            }}
         >
           <TextInput
             placeholder="title"
