@@ -4,15 +4,26 @@ import { SimpleGrid } from "@mantine/core";
 import Cards from "./Cards";
 
 export default function Column(props) {
-  console.log(props.column.name)
+  console.log(props.column.name);
   return (
-    <SimpleGrid>
-      <Card shadow="sm" p="xl" component="a" target="_blank">
+    <SimpleGrid display="contents" flex-wrap= "nowrap" flex-direction = "row">
+      <Card
+        style={{
+          width: 320,
+          // display: "contents"
+        }}
+        shadow="sm"
+        p="xl"
+        component="a"
+        target="_blank"
+      >
         <Card.Section>
-          <p>{props.column.title}</p>
+          <div>
+            <Text align="center">{props.column.title}</Text>
+            <Cards align="center" column={props.title} />
+          </div>
         </Card.Section>
       </Card>
-      <Cards column={props.title} />
     </SimpleGrid>
   );
 }

@@ -51,8 +51,7 @@ export default function Boards() {
         <Button
           onClick={() => {
             GetName(boardTitle);
-            setOpened(false)
-            // console.log(boardTitle)
+            setOpened(false);
           }}
         >
           {" "}
@@ -65,11 +64,7 @@ export default function Boards() {
           console.log(board),
           (
             <span key={board.id} flex-direction="column">
-              <Button
-                onClick={showBoard}
-                variant="white"
-                color="dark"
-              >
+              <Button onClick={showBoard} variant="white" color="dark">
                 <p>{board.name}</p>
               </Button>
             </span>

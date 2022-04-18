@@ -18,13 +18,13 @@ export default function Cards(props) {
 
   return (
     <div>
-      <NewTrelloCard column={props.column} />
+      <NewTrelloCard align="center" column={props.column} />
 
       {cards &&
         cards.length > 0 &&
         cards
           .sort((a, b) => b.timestamp - a.timestamp)
-          .map((card) => <TrelloCard card={card} />)}
+          .map((card) => <TrelloCard align="center" card={card} />)}
     </div>
   );
 }
