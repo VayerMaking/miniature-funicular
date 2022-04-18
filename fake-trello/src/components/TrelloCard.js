@@ -46,7 +46,7 @@ export default function TrelloCard(props) {
         opened={opened}
         onClose={() => setOpened(false)}
       >
-        <ExpandedCard id={props.card.id}></ExpandedCard>
+        <ExpandedCard id={props.card.id} card={props.card}></ExpandedCard>
       </Modal>
     </>
   );

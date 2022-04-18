@@ -24,6 +24,7 @@ export default function Column(props) {
           </div>
         </Card.Section>
       </Card>
+      <Cards column={props.column} />
     </SimpleGrid>
   );
 }

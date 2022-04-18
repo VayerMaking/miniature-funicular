@@ -28,7 +28,8 @@ export default function NewTrelloCard(props) {
       content: cardContent,
       labels: cardLabels,
       timestamp: Date.now(),
-      column: props.column,
+      column: props.column.title,
+      is_archived: false,
     }).then((error) => {
       console.log(error);
     });
@@ -36,7 +37,6 @@ export default function NewTrelloCard(props) {
 
   function AddLabel(label) {
     const { add } = useIndexedDB("labels");
-
     add({
       label: label,
     }).then((error) => {
@@ -71,7 +71,7 @@ export default function NewTrelloCard(props) {
         ></TextInput>
         <MultiSelect
           label="Labels"
-          data={labels || ["Bug", "Feature", "Enhancement"]}
+          data={labels}
           placeholder="Select labels"
           searchable
           creatable

@@ -10,11 +10,13 @@ export default function Cards(props) {
 
   useEffect(() => {
     getAll().then((cardsFromDB) => {
-      setCards(cardsFromDB.filter((card) => card.column === props.column));
+      setCards(
+        cardsFromDB
+          .filter((card) => card.column === props.column.title)
+          .filter((card) => card.is_archived === false)
+      );
     });
   }, []);
-
-  console.log("cards", cards);
 
   return (
     <div>
