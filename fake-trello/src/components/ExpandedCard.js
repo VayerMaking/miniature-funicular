@@ -15,11 +15,11 @@ import { useIndexedDB } from "react-indexed-db";
 export default function ExpandedCard(props) {
   const navigate = useNavigate();
 
-  const [card, setCard] = useState({});
-  const [input, setInput] = useState();
-  const [column, setColumn] = useState();
+  const [card, setCard] = useState(props.card);
+  const [input, setInput] = useState("");
+  const [column, setColumn] = useState(props.card.column);
   const { getByID } = useIndexedDB("cards");
-  const [columnTitles, setColumnTitles] = useState([]);
+  const [columnTitles, setColumnTitles] = useState(["default"]);
 
   function UpdateCard(input) {
     const { update } = useIndexedDB("cards");
@@ -45,10 +45,11 @@ export default function ExpandedCard(props) {
     });
   }
   useEffect(() => {
-    getByID(props.id).then((card) => {
-      setCard(card);
+    getByID(props.id).then((i) => {
+      setCard({ ...card, ...i });
       setInput(card.content);
       GetColumns();
+      setColumn(card.column);
     });
   }, []);
   return (
