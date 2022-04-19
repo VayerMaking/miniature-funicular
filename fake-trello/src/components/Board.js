@@ -3,6 +3,8 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 import { Button, Grid, Modal, TextInput, ScrollArea } from "@mantine/core";
+import { showNotification } from "@mantine/notifications";
+
 import Column from "./Column";
 
 export default function Board() {
@@ -21,6 +23,14 @@ export default function Board() {
   }, []);
 
   const handleClick = () => {
+    if (columns.length >= 4) {
+      showNotification({
+        position: "bottom-center",
+        color: "red",
+        title: "Premium",
+        message: "Hey there, u have dicovered a premium feature",
+      });
+    }
     setOpened(true);
   };
 
@@ -36,7 +46,7 @@ export default function Board() {
   }
 
   return (
-    <ScrollArea style={{ width: "300%" }}>
+    <ScrollArea style={{ width: "200%", height: "100%" }}>
       <div>
         <Modal
           opened={opened}
