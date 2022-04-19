@@ -70,7 +70,7 @@ export default function Board() {
         </Modal>
         <Button onClick={handleClick}>Add COLUMN</Button>
         <div>
-          <Grid justify="space-evenly">
+          <Grid justify="space-evenly" style={{ flexWrap: "nowrap" }}>
             {columns
               .filter((column) => column.board == id)
               .map((column) => (
