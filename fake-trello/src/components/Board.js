@@ -62,7 +62,7 @@ export default function Board() {
         <div>
           <Grid justify="flex-start" flex-direction="row">
             {columns
-              .filter((column) => column.board.id == id)
+              .filter((column) => column.board == id)
               .map((column) => (
                 <Grid.Col flex-direction="row" span={1}>
                   {console.log(columns)}
