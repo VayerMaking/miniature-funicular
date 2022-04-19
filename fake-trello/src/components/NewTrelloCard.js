@@ -30,6 +30,7 @@ export default function NewTrelloCard(props) {
       timestamp: Date.now(),
       column: props.column.title,
       is_archived: false,
+      author: localStorage.getItem("user"),
     }).then((error) => {
       console.log(error);
     });
