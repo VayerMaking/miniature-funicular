@@ -11,6 +11,8 @@ import ExpandedCard from "./components/ExpandedCard";
 initDB(DBConfig);
 
 function App() {
+  localStorage.setItem("user", "test user");
+
   return (
     <BrowserRouter>
       <AppShell
@@ -20,14 +22,9 @@ function App() {
             <Nav />
           </Header>
         }
-        styles={(theme) => ({
-          main: {
-            backgroundColor:
-              theme.colorScheme === "dark"
-                ? theme.colors.dark[8]
-                : theme.colors.gray[0],
-          },
-        })}
+        styles={{
+          backgroundColor: "white",
+        }}
       >
         <Routes>
           <Route exact path="/" element={<Body />} />
