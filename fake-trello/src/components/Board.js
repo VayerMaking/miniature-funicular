@@ -36,7 +36,7 @@ export default function Board() {
   }
 
   return (
-    <ScrollArea style={{ width: "120%" }}>
+    <ScrollArea style={{ width: "300%" }}>
       <div>
         <Modal
           opened={opened}
@@ -60,11 +60,12 @@ export default function Board() {
         </Modal>
         <Button onClick={handleClick}>Add COLUMN</Button>
         <div>
-          <Grid justify="flex-start" flex-direction="row">
+          <Grid justify="space-evenly">
             {columns
               .filter((column) => column.board == id)
               .map((column) => (
-                <Grid.Col flex-direction="row" span={1}>
+                // <Grid.Col flex-direction="row" span={1}>
+                <Grid.Col span={3}>
                   {console.log(columns)}
                   <Column column={column} />
                 </Grid.Col>
