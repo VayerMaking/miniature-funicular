@@ -7,7 +7,7 @@ import {
   Badge,
   SegmentedControl,
 } from "@mantine/core";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import { useState, useEffect } from "react";
 import { useIndexedDB } from "react-indexed-db";
@@ -20,6 +20,7 @@ export default function ExpandedCard(props) {
   const [column, setColumn] = useState(props.card.column);
   const { getByID } = useIndexedDB("cards");
   const [columnTitles, setColumnTitles] = useState(["default"]);
+  let { id } = useParams();
 
   function UpdateCard(input) {
     const { update } = useIndexedDB("cards");
@@ -65,7 +66,11 @@ export default function ExpandedCard(props) {
   function GetColumns() {
     const { getAll } = useIndexedDB("columns");
     getAll().then((columnsFromDB) => {
-      const temp = columnsFromDB.map((column) => column.title);
+      const temp = columnsFromDB
+        .filter((column) => column.board === id)
+        .map((column) => column.title);
+      console.log("temp", temp);
+
       setColumnTitles(temp);
     });
   }
