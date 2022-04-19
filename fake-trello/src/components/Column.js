@@ -10,37 +10,31 @@ export default function Column(props) {
     });
   }
   return (
-    <SimpleGrid display="contents" flex-wrap="nowrap" flex-direction="row">
-      <Card
-        style={{
-          width: 320,
-          backgroundColor: "white",
-          // display: "contents"
+    <Card
+      style={{
+        width: 320,
+      }}
+      shadow="sm"
+      p="xl"
+    >
+      <Card.Section>
+        <div>
+          <Text align="center">{props.column.title}</Text>
+          <Cards align="center" column={props.column} />
+        </div>
+      </Card.Section>
+      <Button
+        variant="light"
+        color="red"
+        fullWidth
+        style={{ marginTop: 14 }}
+        onClick={() => {
+          DeleteColumn(props.column.id);
+          window.location.reload();
         }}
-        shadow="sm"
-        p="xl"
-        // component="a"
-        // target="_blank"
       >
-        <Card.Section>
-          <div>
-            <Text align="center">{props.column.title}</Text>
-            <Cards align="center" column={props.column} />
-          </div>
-        </Card.Section>
-        <Button
-          variant="light"
-          color="red"
-          fullWidth
-          style={{ marginTop: 14 }}
-          onClick={() => {
-            DeleteColumn(props.column.id);
-            window.location.reload();
-          }}
-        >
-          delete
-        </Button>
-      </Card>
-    </SimpleGrid>
+        delete
+      </Button>
+    </Card>
   );
 }

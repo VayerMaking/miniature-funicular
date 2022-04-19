@@ -46,7 +46,7 @@ export default function Board() {
   }
 
   return (
-    <ScrollArea style={{ width: "200%", height: "100%" }}>
+    <ScrollArea style={{ width: "100%", height: "100%" }}>
       <div>
         <Modal
           opened={opened}
