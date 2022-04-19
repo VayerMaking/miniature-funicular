@@ -22,9 +22,14 @@ function App() {
             <Nav />
           </Header>
         }
-        styles={{
-          backgroundColor: "white",
-        }}
+        styles={(theme) => ({
+          main: {
+            backgroundColor:
+              theme.colorScheme === "dark"
+                ? theme.colors.dark[8]
+                : theme.colors.gray[0],
+          },
+        })}
       >
         <Routes>
           <Route exact path="/" element={<Body />} />

@@ -14,12 +14,13 @@ export default function Column(props) {
       <Card
         style={{
           width: 320,
+          backgroundColor: "white",
           // display: "contents"
         }}
         shadow="sm"
         p="xl"
-        component="a"
-        target="_blank"
+        // component="a"
+        // target="_blank"
       >
         <Card.Section>
           <div>
